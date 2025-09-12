@@ -8,6 +8,9 @@ import { swaggerSpec, swaggerUi } from "./swagger.ts"
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.get("/", (req, res) => {
+  res.status(200).send("OK")
+})
 
 // Routes
 app.use(stationRoutes)

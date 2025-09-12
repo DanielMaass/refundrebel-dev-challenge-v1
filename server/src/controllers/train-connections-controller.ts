@@ -21,7 +21,7 @@ const departureOptions = {
   moreStops: null, // also include departures/arrivals for array of up to nine additional station evaNumbers (not supported with dbnav and dbweb)
   language: "de", // language to get results in
 }
-const client = createClient(dbnavProfile, userAgent)
+export const client = createClient(dbnavProfile, userAgent)
 
 // Read all connections
 export const getTrainConnections = async (req: Request, res: Response, next: NextFunction) => {
