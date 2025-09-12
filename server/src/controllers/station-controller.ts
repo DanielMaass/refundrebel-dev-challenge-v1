@@ -21,6 +21,7 @@ const client = createClient(dbnavProfile, userAgent)
 export const getStations = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.params
+    console.log("### Searching for stations with name:", name)
     const result: LocationResponse[] = await client.locations(name, dbVendoOptions)
     const stations = result.filter(
       (loc) =>

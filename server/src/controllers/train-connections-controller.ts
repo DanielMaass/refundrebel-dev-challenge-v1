@@ -27,18 +27,32 @@ const client = createClient(dbnavProfile, userAgent)
 export const getTrainConnections = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id, duration } = req.params
+
     const opt = departureOptions
+    opt.when = new Date()
+
     const dur = parseInt(duration ?? "", 10)
     if (!isNaN(dur) && dur > 0) {
       opt.duration = dur
     }
 
-    const [departures, arrivals]: [TrainConnectionResponse[], TrainConnectionResponse[]] = await Promise.all([
-      client.departures(id, opt),
-      client.arrivals(id, opt),
-    ])
+    const [arrivalsResponse, departuresResponse]: [
+      { arrivals: TrainConnectionResponse[] },
+      { departures: TrainConnectionResponse[] },
+    ] = await Promise.all([client.arrivals(id, opt), client.departures(id, opt)])
 
-    res.json({ ...departures, ...arrivals })
+    if (!arrivalsResponse && !departuresResponse) {
+      return res.status(404).json({ message: "No arrivals or departures found" })
+    }
+
+    const filteredArrivals = arrivalsResponse.arrivals?.filter((a) => {
+      return ["nationalExpress", "national", "regionalExpress", "regional"].includes(a.line.product)
+    })
+    const filteredDepartures = departuresResponse.departures?.filter((d) => {
+      return ["nationalExpress", "national", "regionalExpress", "regional"].includes(d.line.product)
+    })
+
+    res.json({ departures: filteredDepartures, arrivals: filteredArrivals })
   } catch (error) {
     next(error)
   }

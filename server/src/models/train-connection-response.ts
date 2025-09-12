@@ -2,7 +2,17 @@ export interface TrainConnectionResponse {
   tripId: string
   line: {
     name: string
-    product: string
+    product:
+      | "nationalExpress"
+      | "national"
+      | "regionalExpress"
+      | "regional"
+      | "suburban"
+      | "bus"
+      | "ferry"
+      | "subway"
+      | "tram"
+      | "taxi"
     mode: string
     symbol?: string
     nr?: number

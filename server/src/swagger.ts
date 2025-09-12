@@ -5,7 +5,7 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Deine API",
+      title: "RefundRebel API Dev Challenge V1",
       version: "1.0.0",
     },
   },
