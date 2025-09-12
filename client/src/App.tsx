@@ -1,31 +1,40 @@
-import { useState } from "react"
-import reactLogo from "./assets/react.svg"
-import viteLogo from "/vite.svg"
 import "./App.css"
-import { Button } from "./components/ui/button"
+import { DurationSelect } from "./components/duration-select"
+import { ResultTable } from "./components/result-table"
+import { SearchInput } from "./components/search-input"
+import { useDataContext } from "./hooks/use-data-context"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { data, isLoading, error } = useDataContext()
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)}>count is {count}</Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <div className="container mx-auto space-y-12 py-16 p-4">
+      <div className="text-center">
+        <p className="gradient-text text-3xl md:text-6xl">
+          <span className="font-extrabold">Refund</span>
+          <span className="font-light">Rebel</span>
         </p>
+        <p className="text-sm">Dev Challenge V1</p>
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+      <div className="flex gap-4 flex-wrap items-center justify-center">
+        <SearchInput />
+        bis in
+        <DurationSelect />
+      </div>
+      {isLoading && <p className="mx-auto text-center">Verbindungen suchen...</p>}
+      {error && (
+        <div className="mx-auto">
+          <p>Upps... Beim Laden der Daten ist ein Fehler aufgetreten:</p>
+          <p>{error.message}</p>
+        </div>
+      )}
+      {data && (
+        <>
+          <ResultTable data={data?.arrivals} type="arrivals" />
+          <ResultTable data={data?.departures} type="departures" />
+        </>
+      )}
+    </div>
   )
 }
 
