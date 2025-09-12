@@ -4,7 +4,6 @@ import { items, type Item } from "../models/item.ts"
 // Create an item
 export const createItem = (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log("### POST CALLED ###")
     const { name } = req.body
     const newItem: Item = { id: Date.now(), name }
     items.push(newItem)
