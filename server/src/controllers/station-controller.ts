@@ -15,13 +15,12 @@ const dbVendoOptions = {
   linesOfStops: false, // not supported
   language: "de", // language to get results in
 }
-const client = createClient(dbnavProfile, userAgent)
+export const client = createClient(dbnavProfile, userAgent)
 
 // Read all locations
 export const getStations = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.params
-    console.log("### Searching for stations with name:", name)
     const result: LocationResponse[] = await client.locations(name, dbVendoOptions)
     const stations = result.filter(
       (loc) =>
