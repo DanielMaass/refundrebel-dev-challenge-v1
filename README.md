@@ -49,6 +49,6 @@
 
 ## API Documentation (Swagger)
 
-Nach dem Start des Servers kann die API Dokumentation über
+Nach dem Start des Servers kann die API Dokumentation unter
 http://localhost:3000/api-docs
-aufgreufen werden.
+aufgerufen werden.
