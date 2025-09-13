@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { createContext, type ReactNode, useState } from "react"
-import { getTrainConnections } from "../api/get-train-connections"
-import { useDebounced } from "../hooks/use-debounced"
+import { getTrainConnections } from "@/api/get-train-connections"
+import { useDebounced } from "@/hooks/use-debounced"
 
 type DataContextType = {
   selectedStation: LocationResponse | null
@@ -17,7 +17,7 @@ const DataContext = createContext<DataContextType | undefined>(undefined)
 
 const DataProvider = ({ children }: { children: ReactNode }) => {
   const [selectedStation, setSelectedStation] = useState<LocationResponse | null>(null)
-  const [selectedDuration, setSelectedDuration] = useState<number>(10)
+  const [selectedDuration, setSelectedDuration] = useState<number>(15)
   const debouncedStation = useDebounced(selectedStation, 700)
 
   const { data, isLoading, error } = useQuery<
@@ -26,12 +26,20 @@ const DataProvider = ({ children }: { children: ReactNode }) => {
     queryKey: ["train-connections", debouncedStation?.id, selectedDuration],
     queryFn: () => getTrainConnections(debouncedStation!.id, selectedDuration),
     enabled: !!debouncedStation?.id,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 60 * 1000, // 1 minute
   })
 
   return (
     <DataContext.Provider
-      value={{ selectedStation, setSelectedStation, selectedDuration, setSelectedDuration, data, isLoading, error }}
+      value={{
+        selectedStation,
+        setSelectedStation,
+        selectedDuration,
+        setSelectedDuration,
+        data,
+        isLoading,
+        error,
+      }}
     >
       {children}
     </DataContext.Provider>

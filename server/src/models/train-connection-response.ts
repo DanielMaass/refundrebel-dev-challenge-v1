@@ -1,4 +1,4 @@
-export interface TrainConnectionResponse {
+export type TrainConnectionResponse = {
   tripId: string
   line: {
     name: string

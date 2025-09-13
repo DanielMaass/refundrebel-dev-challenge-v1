@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import { ChevronsUpDown } from "lucide-react"
 import { useState } from "react"
-import { getStations } from "../api/get-stations"
-import { Button, type ButtonProps } from "../components/ui/button"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../components/ui/command"
-import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "../components/ui/drawer"
-import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover"
-import { useDataContext } from "../hooks/use-data-context"
-import { useDebounced } from "../hooks/use-debounced"
-import { useMediaQuery } from "../hooks/use-media-query"
+import { getStations } from "@/api/get-stations"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useDataContext } from "@/hooks/use-data-context"
+import { useDebounced } from "@/hooks/use-debounced"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 export function SearchInput() {
   const [open, setOpen] = useState(false)
@@ -47,7 +47,7 @@ function SearchButton(props: ButtonProps) {
   const { selectedStation } = useDataContext()
 
   return (
-    <Button variant="outline" {...props} className="min-w-40 max-w-60 justify-start grow">
+    <Button variant="outline" {...props} className="grow min-w-40 sm:max-w-80 justify-start">
       <span className="truncate">{selectedStation?.name ?? "Bahnhof suchen"}</span>
       <ChevronsUpDown className="ml-auto" />
     </Button>
@@ -68,7 +68,7 @@ function StationList({ setOpen }: { setOpen: (open: boolean) => void }) {
 
   return (
     <Command>
-      <CommandInput value={searchValue} onValueChange={setSearchValue} />
+      <CommandInput value={searchValue} onValueChange={setSearchValue} autoFocus />
       <CommandList>
         <ResultList
           isLoading={isLoading}
