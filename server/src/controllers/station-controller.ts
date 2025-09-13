@@ -1,3 +1,4 @@
+//TODO: fix types with json schema from db-vendor-client
 import { createClient } from "db-vendo-client"
 import { profile as dbnavProfile } from "db-vendo-client/p/dbnav/index.js"
 import { type NextFunction, type Request, type Response } from "express"
@@ -6,7 +7,7 @@ import { type LocationResponse } from "../models/location-response.ts"
 const userAgent = ""
 const dbVendoOptions = {
   fuzzy: true, // not supported
-  results: 5, // how many search results?
+  results: 7, // how many search results?
   stops: true, // return stops/stations?
   addresses: true,
   poi: false, // points of interest

@@ -1,3 +1,4 @@
+//TODO: use json schema from db-vendor-client
 type LocationResponse = {
   type: "station"
   id: string

@@ -1,4 +1,5 @@
-export interface LocationResponse {
+//TODO: use json schema from db-vendor-client
+export type LocationResponse = {
   type: "location" | "stop" | "station" | "address" | "poi"
   id: string
   name: string
