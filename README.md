@@ -3,6 +3,7 @@
 ## Server und Client starten
 
 ### Server starten
+
 1. In das Server-Verzeichnis wechseln:
    ```bash
    cd server
@@ -17,6 +18,7 @@
    ```
 
 ### Client starten
+
 1. In das Client-Verzeichnis wechseln:
    ```bash
    cd client
@@ -44,3 +46,9 @@
    ```bash
    npx vitest
    ```
+
+## API Documentation (Swagger)
+
+Nach dem Start des Servers kann die API Dokumentation über
+http://localhost:3000/api-docs
+aufgreufen werden.
