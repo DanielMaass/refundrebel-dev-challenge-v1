@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useDataContext } from "@/hooks/use-data-context"
+import { useMediaQuery } from "@/hooks/use-media-query"
 import { ChevronsUpDown } from "lucide-react"
-import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "../components/ui/drawer"
-import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover"
-import { useDataContext } from "../hooks/use-data-context"
-import { useMediaQuery } from "../hooks/use-media-query"
-import { Button, type ButtonProps } from "./ui/button"
-import { Command, CommandGroup, CommandItem, CommandList } from "./ui/command"
+import { useEffect, useRef, useState } from "react"
+import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
+import { Button, type ButtonProps } from "@/components/ui/button"
+import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
 
 export function DurationSelect() {
   const [open, setOpen] = useState(false)
@@ -43,7 +43,7 @@ export function DurationSelect() {
 function DurationButton(props: ButtonProps) {
   const { selectedDuration } = useDataContext()
   return (
-    <Button variant="outline" {...props} className="grow max-w-40">
+    <Button variant="outline" {...props} className="grow">
       {selectedDuration} Minuten
       <ChevronsUpDown className="ml-auto" />
     </Button>
@@ -53,7 +53,7 @@ function DurationButton(props: ButtonProps) {
 function DurationList({ setOpen }: { setOpen: (open: boolean) => void }) {
   const commandRef = useRef<HTMLDivElement>(null)
   const { setSelectedDuration } = useDataContext()
-  const durations = [5, 10, 15, 20, 30, 45, 60]
+  const durations = [15, 30, 45, 60, 90, 120]
 
   useEffect(() => {
     commandRef.current?.focus()
